@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from 'prop-types'
+import { useCssHandles } from 'vtex.css-handles';
 
 type Props = {
     logo: string
@@ -10,26 +11,32 @@ type Props = {
 }
 
 const WhatsappButton = ({logo, phone, message, width, height}: Props) => {
-    //const formattedMessage = message.replace(/ /g, "%20")
-    return (
-        <>
-            <div className="fixed bottom-2 right-2 flex flexColumn">
-                <a
-                    href={`https://wa.me/${phone}?text=${message}`}
-                    target="_blank"
-                    rel="noreferrer noopener"
-                >
-                    <img
-                        src={logo}
-                        alt="whatsapp's logo"
-                        width={width}
-                        height={height}
-                    />
-                </a>
+  //const formattedMessage = message.replace(/ /g, "%20")
+  const CSS_HANDLES = [
+    "button__item",
+    "button__item--img"
+  ]
+  const handles = useCssHandles(CSS_HANDLES)
 
-            </div>
-        </>
-    )
+  return (
+    <>
+      <div className={`fixed bottom-2 right-2 flex flexColumn ${handles.button__item}`}>
+        <a
+            href={`https://wa.me/${phone}?text=${message}`}
+            target="_blank"
+            rel="noreferrer noopener"
+        >
+            <img
+              className={`${handles["button__item--img"]}`}
+              src={logo}
+              alt="whatsapp's logo"
+              width={width}
+              height={height}
+            />
+        </a>
+      </div>
+    </>
+  )
 }
 
 WhatsappButton.propTypes = {
